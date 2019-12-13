@@ -1,8 +1,17 @@
 <template>
   <div>
-    <form-helper>
-      <h2 slot="titleslot">{{title}}</h2>
-      <p slot="paraslot">I am the paragraph text !</p>
+    <form-helper :titleheader="headertitle">
+      <div slot="form-header" >
+        <h3>This is the title of the form</h3>
+        <p>Information about the form</p>
+      </div>
+      <div slot="form-fields">
+        <input type="text" placeholder="name" required>
+        <input type="password" placeholder="password" required>
+      </div>
+      <div slot="form-controls">
+        <button v-on:click="handleSubmit">Submit</button>
+      </div>
     </form-helper>
     <app-header v-bind:title="title"
     v-on:changeTitle="updateTitle($event)"></app-header>
@@ -31,12 +40,17 @@ export default {
         {name: "Hitoshi", speciality: "Click Events", show: false},
         {name: "Becky", speciality: "Fall apart", show: false}
       ],
-      title: "I am a dynamic slot title"
+      title: "I am a dynamic slot title",
+      headertitle: "Netter header Titel"
     }
   },
   methods: {
     updateTitle: function(updatedTitle) {
       this.title = updatedTitle;
+    },
+    handleSubmit: function(event) {
+      event.preventDefault();
+      console.log("SUBMITTED!");
     }
   }
 }
